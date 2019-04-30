@@ -1,8 +1,11 @@
 set nocompatible
+set t_Co=256
+set t_ut=
 let mapleader=','
 set encoding=utf-8
 scriptencoding utf-8
 set history=100
+set wildmenu
 set hidden
 set undofile
 set undodir=$HOME/.vimcache/undo
@@ -29,7 +32,8 @@ set splitbelow splitright
 call plug#begin('~/.vim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'flazz/vim-colorschemes'
+Plug 'tomasiser/vim-code-dark'
+" Plug 'flazz/vim-colorschemes'
 
 Plug 'w0rp/ale'
 Plug 'vim-scripts/taglist.vim'
@@ -55,22 +59,21 @@ Plug 'kana/vim-textobj-entire'
 Plug 'sgur/vim-textobj-parameter'
 call plug#end()
 
-colorscheme molokai
-
-let g:airline_theme = 'murmur'
-let g:airline_powerline_fonts = 1
-let g:airline#extension#tabline#enabled = 1
-let g:airline#extension#tabline#formatter = 'unique_tail_improved'
+colorscheme codedark
+let g:airline_theme = 'codedark'
+" let g:airline_powerline_fonts = 1
+" let g:airline#extension#tabline#enabled = 1
+" let g:airline#extension#tabline#formatter = 'unique_tail_improved'
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = 'X'
 let g:ale_sign_warning = '!'
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_prompt_mappings = {
-			\'AcceptSelection("e")': [],
-			\'AcceptSelection("t")': ['<cr>'],
-			\}
 let g:ctrlp_by_filename = 1
+let g:ctrlp_show_hidden = 1
+" let g:ctrlp_prompt_mappings = {
+			" \'AcceptSelection("e")': [],
+			" \'AcceptSelection("t")': ['<cr>'],
+			" \}
 
 nnoremap <leader>m :call MouseEnableToggle()<cr>
 function! MouseEnableToggle()
@@ -98,7 +101,7 @@ nmap ga <Plug>(EasyAlign)
 nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
 nnoremap <leader>r :source $MYVIMRC<cr>
-nnoremap <leader>e :tabnew $MYVIMRC<cr>
+nnoremap <leader>e :edit $MYVIMRC<cr>
 nnoremap <leader>o :NERDTreeToggle<cr>
 autocmd BufEnter * if(winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 nnoremap <leader>ct :!ctags -R .<cr>
@@ -108,7 +111,7 @@ noh
 nnoremap <leader>p :cprevious<cr>
 nnoremap <leader>n :cnext<cr>
 nnoremap <leader>s :set invspell<cr>
-nnoremap <leader>h :tab help
+nnoremap <leader>h :tab help<space>
 
 autocmd FileType c setlocal commentstring=//\ %s
 autocmd FileType help noremap <buffer> q :q<cr>
