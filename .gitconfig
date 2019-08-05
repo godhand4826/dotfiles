@@ -1,0 +1,11 @@
+[user]
+	name = godhand4826
+	email = godhand4826@gmail.com 
+[core]
+	editor = vim
+[alias]
+	l  = log --graph --oneline
+	ll = log --graph --oneline --all 
+	st = status
+	co = checkout
+	ru = remote update
