@@ -4,8 +4,12 @@
 [core]
 	editor = vim
 [alias]
-	l  = log --graph --oneline
-	ll = log --graph --oneline --all 
-	st = status
-	co = checkout
-	ru = remote update
+        l = log --graph --oneline
+        ll = log --graph --all
+        a = add
+        aa = add --all
+        st = status
+        co = checkout
+        d = diff
+        dc = diff --cached
+        ru = remote update
