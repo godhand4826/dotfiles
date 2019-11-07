@@ -1,15 +1,15 @@
 [user]
-	name = godhand4826
-	email = godhand4826@gmail.com 
+	name   = godhand4826
+	email  = godhand4826@gmail.com
 [core]
 	editor = vim
 [alias]
-        l = log --graph --oneline
-        ll = log --graph --all
-        a = add
-        aa = add --all
-        st = status
-        co = checkout
-        d = diff
-        dc = diff --cached
-        ru = remote update
+	l      = log --graph --oneline
+	ll     = log --graph --all
+	a      = add
+	aa     = add --all
+	st     = status
+	co     = checkout
+	d      = diff
+	dc     = diff --cached
+	ru     = remote update
