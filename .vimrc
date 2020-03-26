@@ -1,44 +1,56 @@
 set nocompatible
-set t_Co=256
-set t_ut=
-" let mapleader=','
-set encoding=utf-8
-scriptencoding utf-8
-set history=100
-set wildmenu
+let mapleader='\'
+set timeout timeoutlen=2000 ttimeoutlen=0
+set signcolumn=yes
+set updatetime=200
+set mouse=
+xnoremap <leader> :w !xclip -sel clip<cr><cr>
 set hidden
-set undofile
-set undodir=$HOME/.vimcache/undo
-set undolevels=1000
-set undoreload=10000
+nnoremap <leader>r :source ~/.vimrc<cr>
+nnoremap <leader>e :edit ~/.vimrc<cr>
 set number relativenumber
 set cursorline
-set scrolloff=5
 set showmode showcmd ruler
-" set showmatch matchtime=0
-set updatetime=100 " for vim-gitgutter
+set rulerformat=%40(%f\ %y%=%b\ 0x%B\ %l,%c%V\ %p%%%)
+set wildmenu
+set history=500
+cnoremap tee execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+set incsearch hlsearch ignorecase smartcase
+nnoremap <leader><leader> :set hlsearch!<cr>
+set nowrap sidescroll=1
+set splitbelow splitright
+set listchars=eol:¬,tab:»\ ,trail:.,precedes:«,extends:…,
+nnoremap <leader>l :set list!<cr>
 syntax on
-filetype on
 filetype plugin indent on
-set shiftwidth=4 tabstop=4 softtabstop=4
+set shiftwidth=4 tabstop=4 " expandtab softtabstop=4
 set autoindent smartindent
 set shiftround
-set nowrap
-set listchars=eol:¬,tab:▸\ ,trail:.,
 set complete+=kspell
-set incsearch hlsearch ignorecase smartcase
-set splitbelow splitright
+
+xnoremap @ :<c-u>call MacoroOverVisualRange()<cr>
+function! MacoroOverVisualRange()
+	echo "@".getcmdline()
+	execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+
+nnoremap <leader>m :call ToggleMouse()<cr>
+function! ToggleMouse()
+  if &mouse!=""
+      set mouse=
+  else
+      set mouse=a
+  endif
+endfunction
 
 call plug#begin('~/.vim/plugged')
-" command
-" Plug 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-repeat'
 
-" text object
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-indent'
@@ -46,81 +58,46 @@ Plug 'glts/vim-textobj-comment'
 Plug 'kana/vim-textobj-entire'
 Plug 'sgur/vim-textobj-parameter'
 
-" tool
-" Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 " Plug 'vim-scripts/taglist.vim'
 " Plug 'mileszs/ack.vim'
 " Plug 'tpope/vim-fugitive'
+" Plug 'valloric/youcompleteme'
 Plug 'airblade/vim-gitgutter'
+Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
 " Plug 'kien/ctrlp.vim'
 " Plug 'scrooloose/nerdtree'
-Plug 'jiangmiao/auto-pairs'
-
-" scheme
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-" Plug 'tomasiser/vim-code-dark'
-" Plug 'flazz/vim-colorschemes'
+" Plug 'jiangmiao/auto-pairs'
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'roxma/nvim-yarp'
+" Plug 'roxma/vim-hug-neovim-rpc'
 call plug#end()
-
-" colorscheme codedark
-" let g:airline_theme = 'codedark'
-" let g:airline_powerline_fonts = 1
-" let g:airline#extension#tabline#enabled = 1
-" let g:airline#extension#tabline#formatter = 'unique_tail_improved'
-" let g:ale_sign_column_always = 1
-" let g:ale_sign_error = 'X'
-" let g:ale_sign_warning = '!'
-" let g:ctrlp_working_path_mode = 'ra'
-" let g:ctrlp_by_filename = 1
-" let g:ctrlp_show_hidden = 1
-" let g:ctrlp_prompt_mappings = {
-			" \'AcceptSelection("e")': [],
-			" \'AcceptSelection("t")': ['<cr>'],
-			" \}
-
-nnoremap <leader>m :call MouseEnableToggle()<cr>
-function! MouseEnableToggle()
-	if &mouse!=""
-		set mouse=
-		echo "mouse disabled"
-	else
-		set mouse=a
-		echo "mouse enabled"
-	endif
-endfunction
-
-xnoremap @ :<c-u>call ExecuteMacoroOverVisualRange()<cr>
-function! ExecuteMacoroOverVisualRange()
-	echo "@".getcmdline()
-	execute ":'<,'>normal @".nr2char(getchar())
-endfunction
-
-" nnoremap <leader>t :call TrimRight()<cr>
-" function! TrimRight()
-" 	let l:save = winsaveview()
-" 	keeppatterns %s/\s\+$//e
-" 	call winrestview(l:save)
-" endfunction
 
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
-" nnoremap <leader>w :w<cr>
-" nnoremap <leader>q :q<cr>
-nnoremap <leader>r :source $MYVIMRC<cr>
-nnoremap <leader>e :edit $MYVIMRC<cr>
-" nnoremap <leader>o :NERDTreeToggle<cr>
-" autocmd BufEnter * if(winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" nnoremap <leader>ct :!ctags -R .<cr>
-nnoremap <leader><leader> :terminal<cr>
-" nnoremap <leader>/ :noh<cr>
-" noh
-" nnoremap <leader>p :cprevious<cr>
-" nnoremap <leader>n :cnext<cr>
-" nnoremap <leader>s :set invspell<cr>
-" nnoremap <leader>h :tab help<space>
+let g:gitgutter_map_keys = 0
 
-" autocmd FileType c setlocal commentstring=//\ %s
-" autocmd FileType help noremap <buffer> q :q<cr>
+let g:ale_fix_on_save = 1
+let g:ale_completion_enabled = 1
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+highlight ALEWarning cterm=underline
+highlight ALEError cterm=underline
+"let g:ale_fixers = {
+"\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+"\}
 
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+
+" let g:deoplete#enable_at_startup = 1
+
+" tpope/vim-characterize
+" unicode.vim

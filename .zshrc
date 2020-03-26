@@ -3,12 +3,16 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/eric/.oh-my-zsh"
-
+export FZF_CTRL_T_OPTS="--select-1 --exit-0 --reverse --preview '(cat {} || tree -C {}) 2> /dev/null | head -200'"
+export FZF_CTRL_R_OPTS="--select-1 --exit-0 --reverse"
+export FZF_ALT_C_OPTS="--select-1 --exit-0 --reverse"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="ys"
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
+setopt HIST_FIND_NO_DUPS
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -68,7 +72,20 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+	# git
+    sudo
+    extract
+    fzf
+	docker
+	zsh-autosuggestions
+    z
+    # wd
+    screen
+    command-not-found
+    # zsh-interactive-cd
+    # zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -98,10 +115,38 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# vscode
-alias c="code ."
-# safe rm, use "\rm" to really remove.
+bindkey \^U backward-kill-line
+
+alias c="code ." # vscode
 alias rm="gio trash"
+alias explorer="gio open"
+alias setclip="xclip -sel c"
+alias getclip="xclip -sel c -o"
+alias vimconfig="vim ~/.vimrc"
+alias zshconfig="vim ~/.zshrc"
+alias chardiff="git diff  --no-index --word-diff=plain --word-diff-regex=."
+alias terminal="gnome-terminal --working-directory $PWD"
+# git fzf
+alias gadd="git status --short | fzf --multi --color=dark --cycle --border --ansi --preview-window=up:70% --preview=\"git diff --color {+2}\" | awk '{print \$2}'  | xargs git add"
+alias gco="git diff --name-only | fzf --multi --color=dark --cycle --border --ansi --preview-window=up:70% --preview=\"git diff --color {+1}\" | xargs git checkout"
+alias gustg="git diff --name-only --cached | fzf --multi --color=dark --cycle --border --ansi --preview-window=up:70% --preview="git diff --color --staged {+1}" | xargs git reset HEAD"
+alias t="tree ."
+
+
 # golang
 export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/go
+export GOPRIVATE="cicd.icu/cyberon"
+# rust
+export PATH=$PATH:/$HOME/.cargo/bin
+# deno
+export DENO_INSTALL="/home/eric/.local"
+export PATH="$DENO_INSTALL/bin:$PATH"
+# idris
+export PATH="$HOME/.cabal/bin:$PATH"
+
+PATH="/home/eric/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/eric/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/eric/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/eric/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/eric/perl5"; export PERL_MM_OPT;
