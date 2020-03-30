@@ -1,22 +1,22 @@
 [user]
-	name   = godhand4826
-	email  = godhand4826@gmail.com
+    name   = godhand4826
+    email  = godhand4826@gmail.com
 [core]
-	editor = vim
+    editor = vim
     pager  = less -F -X
 [alias]
-	l      = log --graph --oneline
-	ll     = log --graph --oneline --all
-	a      = add
-	aa     = add --all
-	st     = status
-	co     = checkout
-	d      = diff
-	dc     = diff --cached
+    l      = log --graph --oneline
+    ll     = log --graph --oneline --all
+    a      = add
+    aa     = add --all
+    st     = status
+    co     = checkout
+    d      = diff
+    dc     = diff --cached
     dt     = difftool
     dtc    = difftool --cached
-	ru     = remote update
+    ru     = remote update
 [diff]
-	tool   = vimdiff
+    tool   = vimdiff
 [difftool]
-	prompt = false
+    prompt = false
