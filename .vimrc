@@ -4,14 +4,14 @@ set timeout timeoutlen=2000 ttimeoutlen=0
 set signcolumn=yes
 set updatetime=200
 set mouse=
-xnoremap <leader> :w !xclip -sel clip<cr><cr>
+xnoremap <leader> :'<,'>w !xclip -sel clip<cr><cr>
 set hidden
 nnoremap <leader>r :source ~/.vimrc<cr>
 nnoremap <leader>e :edit ~/.vimrc<cr>
 set number relativenumber
 set cursorline
 set showmode showcmd ruler
-set rulerformat=%40(%f\ %y%=%b\ 0x%B\ %l,%c%V\ %p%%%)
+set rulerformat=%50(%f\ %y%=%b\ 0x%B\ %l,%c%V\ %p%%%)
 set wildmenu
 set history=500
 cnoremap tee execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
@@ -23,7 +23,7 @@ set listchars=eol:¬,tab:»\ ,trail:.,precedes:«,extends:…,
 nnoremap <leader>l :set list!<cr>
 syntax on
 filetype plugin indent on
-set shiftwidth=4 tabstop=4 " expandtab softtabstop=4
+set shiftwidth=4 tabstop=4 expandtab " softtabstop=4
 set autoindent smartindent
 set shiftround
 set complete+=kspell
@@ -56,32 +56,36 @@ Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-indent'
 Plug 'glts/vim-textobj-comment'
 Plug 'kana/vim-textobj-entire'
-Plug 'sgur/vim-textobj-parameter'
+Plug 'gaving/vim-textobj-argument'
 
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'w0rp/ale'
+Plug 'valloric/youcompleteme'
+Plug 'SirVer/ultisnips'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-unimpaired'
+Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 " Plug 'vim-scripts/taglist.vim'
 " Plug 'mileszs/ack.vim'
 " Plug 'tpope/vim-fugitive'
-" Plug 'valloric/youcompleteme'
-Plug 'airblade/vim-gitgutter'
-Plug 'SirVer/ultisnips'
 " Plug 'honza/vim-snippets'
-" Plug 'kien/ctrlp.vim'
 " Plug 'scrooloose/nerdtree'
-" Plug 'jiangmiao/auto-pairs'
-" Plug 'Shougo/deoplete.nvim'
-" Plug 'roxma/nvim-yarp'
-" Plug 'roxma/vim-hug-neovim-rpc'
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
+" Plug 'junegunn/vim-easy-align'
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
+" Plug 'airblade/vim-gitgutter'
 let g:gitgutter_map_keys = 0
 
+" Plug 'w0rp/ale'
 let g:ale_fix_on_save = 1
-let g:ale_completion_enabled = 1
-let g:ale_sign_column_always = 1
+let g:ale_completion_enabled = 2
+let g:ale_sign_column_always = 2
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 let g:ale_echo_msg_error_str = 'E'
@@ -89,15 +93,30 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 highlight ALEWarning cterm=underline
 highlight ALEError cterm=underline
-"let g:ale_fixers = {
-"\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-"\}
+" let g:ale_fixers = {
+"     \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+"     \ 'go' :['gopls'],
+"     \ 'javascript' : ['eslint'],
+" \}
 
-let g:UltiSnipsExpandTrigger="<tab>"
+" Plug 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
-" let g:deoplete#enable_at_startup = 1
+" Plug 'autozimu/LanguageClient-neovim'
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['typescript-language-server', '--stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+    \ 'go': ['gopls'],
+    \ }
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " tpope/vim-characterize
 " unicode.vim
