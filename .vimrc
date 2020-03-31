@@ -1,5 +1,7 @@
 set nocompatible
 let mapleader='\'
+set encoding=utf-8
+cnoremap openas e ++enc=
 set timeout timeoutlen=2000 ttimeoutlen=0
 set signcolumn=yes
 set updatetime=200
@@ -11,7 +13,7 @@ nnoremap <leader>e :edit ~/.vimrc<cr>
 set number relativenumber
 set cursorline
 set showmode showcmd ruler
-set rulerformat=%50(%f\ %y%=%b\ 0x%B\ %l,%c%V\ %p%%%)
+set rulerformat=%50(%f\ %y%{FileSize()}%=%b\ 0x%B\ %l,%c%V\ %p%%%)
 set wildmenu
 set history=500
 cnoremap tee execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
@@ -28,6 +30,13 @@ set autoindent smartindent
 set shiftround
 set complete+=kspell
 
+inoremap jj <Esc>`^
+inoremap kk <Esc>`^
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
 xnoremap @ :<c-u>call MacoroOverVisualRange()<cr>
 function! MacoroOverVisualRange()
 	echo "@".getcmdline()
@@ -41,6 +50,20 @@ function! ToggleMouse()
   else
       set mouse=a
   endif
+endfunction
+
+function! FileSize()
+    let bytes = getfsize(expand("%:p"))
+    if bytes <= 0
+        return "[Empty]"
+    endif
+    if bytes < 1024
+        return "[" . bytes . "B]"
+    elseif bytes < 1048576
+        return "[" . (bytes / 1024) . "KB]"
+    else
+        return "[" . (bytes / 1048576) . "MB]"
+    endif
 endfunction
 
 call plug#begin('~/.vim/plugged')
@@ -60,7 +83,7 @@ Plug 'gaving/vim-textobj-argument'
 
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'w0rp/ale'
-Plug 'valloric/youcompleteme'
+Plug 'valloric/youcompleteme', { 'do': 'python3 install.py --all' }
 Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-unimpaired'
@@ -82,6 +105,9 @@ nmap ga <Plug>(EasyAlign)
 " Plug 'airblade/vim-gitgutter'
 let g:gitgutter_map_keys = 0
 
+" Plug 'valloric/youcompleteme'
+" let g:ycm_autoclose_preview_window_after_completion = 1
+set completeopt-=preview
 " Plug 'w0rp/ale'
 let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 0
@@ -93,11 +119,12 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 highlight ALEWarning cterm=underline
 highlight ALEError cterm=underline
-" let g:ale_fixers = {
-"     \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-"     \ 'go' :['gopls'],
-"     \ 'javascript' : ['eslint'],
-" \}
+let g:ale_fixers = {
+     \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+     \ 'go': ['gofmt'],
+     \ 'javascript' : ['prettier', 'eslint'],
+	 \ 'rust': ['rustfmt'],
+ \}
 
 " Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger="<c-j>"
@@ -105,6 +132,10 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
 " Plug 'autozimu/LanguageClient-neovim'
+" let g:LanguageClient_changeThrottle = 5
+" let g:LanguageClient_completionPreferTextEdit = 0
+let g:LanguageClient_hasSnippetSupport = 0
+let g:LanguageClient_applyCompletionAdditionalTextEdits = 0
 let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
