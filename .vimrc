@@ -146,6 +146,8 @@ endfunction
 
 " Plug 'autozimu/LanguageClient-neovim'
 let g:LanguageClient_diagnosticsEnable = 0
+let g:LanguageClient_hasSnippetSupport = 0
+let g:LanguageClient_applyCompletionAdditionalTextEdits = 0
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
