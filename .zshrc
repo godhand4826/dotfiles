@@ -1,33 +1,23 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export ZSH="/home/eric/.oh-my-zsh"
-export FZF_BASE="/home/eric/.fzf"
-export FZF_DEFAULT_OPTS="--reverse --select-1 --exit-0 --inline-info"
-export FZF_CTRL_T_OPTS="--preview '(cat {} || tree -C {}) 2> /dev/null | head -n 200'"
+export FZF_DEFAULT_COMMAND="find . -type f -not -path '*/\.git/*' -not -path '*/node_modules/*'"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="--select-1 --exit-0 --reverse --preview '(cat {} || tree -C {}) 2> /dev/null | head -200'"
 export FZF_CTRL_R_OPTS="--select-1 --exit-0 --reverse"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_OPTS="--select-1 --exit-0 --reverse"
-export EDITOR="vim"
+# export FZF_BASE="/home/eric/.fzf"
+# export FZF_DEFAULT_OPTS="--reverse --select-1 --exit-0 --inline-info"
+# export FZF_CTRL_T_OPTS="--preview '(cat {} || tree -C {}) 2> /dev/null | head -n 200'"
+# export FZF_CTRL_R_OPTS="--select-1 --exit-0 --reverse"
+# export FZF_ALT_C_OPTS="--select-1 --exit-0 --reverse"
 
 ZSH_THEME="ys"
-# CASE_SENSITIVE="true"
-# HYPHEN_INSENSITIVE="true"
 COMPLETION_WAITING_DOTS="true"
-setopt HIST_FIND_NO_DUPS
 
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
+setopt HIST_IGNORE_ALL_DUPS
 
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
@@ -47,21 +37,12 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
 # export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
 # export LANG=en_US.UTF-8
-
-# Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-
+export EDITOR="vim"
+alias diff="colordiff"
 alias zshrc="$EDITOR ~/.zshrc"
 alias zshreload="source ~/.zshrc"
 alias vimrc="$EDITOR ~/.vimrc"
@@ -75,4 +56,6 @@ alias chardiff="git diff --no-index --word-diff-regex=."
 alias gadd="git status --short | fzf --multi --color=dark --cycle --border --ansi --preview-window=up:70% --preview=\"git diff --color {+2}\" | awk '{print \$2}'  | xargs git add"
 alias gco="git diff --name-only | fzf --multi --color=dark --cycle --border --ansi --preview-window=up:70% --preview=\"git diff --color {+1}\" | xargs git checkout"
 alias gustg="git diff --name-only --cached | fzf --multi --color=dark --cycle --border --ansi --preview-window=up:70% --preview="git diff --color --staged {+1}" | xargs git reset HEAD"
+
+# rust
 export PATH=$PATH:$HOME/.cargo/bin
