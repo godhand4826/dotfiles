@@ -73,7 +73,7 @@ function! ToggleMouse()
 endfunction
 
 call plug#begin('~/.vim/plugged')
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/ReplaceWithRegister'
