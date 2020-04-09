@@ -42,7 +42,6 @@ source $ZSH/oh-my-zsh.sh
 # export ARCHFLAGS="-arch x86_64"
 
 export EDITOR="vim"
-alias diff="colordiff"
 alias zshrc="$EDITOR ~/.zshrc"
 alias zshreload="source ~/.zshrc"
 alias vimrc="$EDITOR ~/.vimrc"
