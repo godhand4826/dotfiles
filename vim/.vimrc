@@ -1,7 +1,7 @@
 set nocompatible
 let mapleader='\'
 set encoding=utf-8
-set timeout timeoutlen=2000 ttimeoutlen=0
+set timeout timeoutlen=500 ttimeoutlen=0
 set signcolumn=yes
 set updatetime=200
 set mouse=
@@ -19,8 +19,10 @@ set wildmenu wildmode=longest,full
 set history=500
 cnoremap tee execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 set incsearch hlsearch ignorecase smartcase
-nnoremap <leader><leader> :set hlsearch!<cr>
+nnoremap <leader>/ :set hlsearch!<cr>
 set nowrap sidescroll=1
+set colorcolumn=80
+highlight ColorColumn ctermbg=0 guibg=lightgrey
 set splitbelow splitright
 inoremap jj <Esc>`^
 inoremap kk <Esc>`^
@@ -103,6 +105,15 @@ Plug 'junegunn/fzf.vim'
 " Plug 'scrooloose/nerdtree'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
+
+" Plug 'mg979/vim-visual-multi'
+let g:VM_leader = ''
+let g:VM_mouse_mappings   = 1
+let g:VM_theme            = 'iceblue'
+
+let g:VM_maps = {}
+let g:VM_maps["Undo"]     = 'u'
+let g:VM_maps["Redo"]     = '<C-r>'
 
 " Plug 'junegunn/vim-easy-align'
 xmap ga <Plug>(EasyAlign)
