@@ -7,6 +7,9 @@ set updatetime=200
 set mouse=
 xnoremap <leader> :'<,'>w !xclip -sel clip<cr><cr>
 set hidden
+set nobackup
+set undodir=~/.vim/undo-dir
+set undofile
 nnoremap <leader>r :source ~/.vimrc<cr>
 nnoremap <leader>e :edit ~/.vimrc<cr>
 set path=.,,**
