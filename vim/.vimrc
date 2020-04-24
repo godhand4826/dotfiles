@@ -22,7 +22,7 @@ set wildmenu wildmode=longest,full
 set history=500
 cnoremap tee execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 set incsearch hlsearch ignorecase smartcase
-nnoremap <leader>/ :set hlsearch!<cr>
+nnoremap <leader><leader> :set hlsearch!<cr>
 set nowrap sidescroll=1
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
@@ -33,10 +33,6 @@ noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
-nnoremap <c-h> <c-w>h
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
 tnoremap <Esc> <C-\><C-n>
 set listchars=eol:¬,tab:»\ ,trail:.,precedes:«,extends:…,
 nnoremap <leader>l :set list!<cr>
@@ -79,7 +75,7 @@ function! ToggleMouse()
 endfunction
 
 call plug#begin('~/.vim/plugged')
-Plug 'mg979/vim-visual-multi'
+" Plug 'mg979/vim-visual-multi'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/ReplaceWithRegister'
@@ -102,22 +98,22 @@ Plug 'tpope/vim-unimpaired'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'mbbill/undotree'
+Plug 'christoomey/vim-tmux-navigator'
 " Plug 'vim-scripts/taglist.vim'
 " Plug 'mileszs/ack.vim'
 " Plug 'tpope/vim-fugitive'
 " Plug 'honza/vim-snippets'
 " Plug 'scrooloose/nerdtree'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 call plug#end()
 
-" Plug 'mg979/vim-visual-multi'
-let g:VM_leader = ''
-let g:VM_mouse_mappings   = 1
-let g:VM_theme            = 'iceblue'
-
-let g:VM_maps = {}
-let g:VM_maps["Undo"]     = 'u'
-let g:VM_maps["Redo"]     = '<C-r>'
+" Plug 'tpope/vim-unimpaired'
+nnoremap [t :tabprevious<cr>
+nnoremap ]t :tabnext<cr>
+nnoremap [T :tabfrist<cr>
+nnoremap ]T :tablast<cr>
 
 " Plug 'junegunn/vim-easy-align'
 xmap ga <Plug>(EasyAlign)
