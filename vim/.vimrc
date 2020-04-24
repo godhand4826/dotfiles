@@ -37,6 +37,7 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
+tnoremap <Esc> <C-\><C-n>
 set listchars=eol:¬,tab:»\ ,trail:.,precedes:«,extends:…,
 nnoremap <leader>l :set list!<cr>
 syntax on
