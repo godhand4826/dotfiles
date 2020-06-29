@@ -94,6 +94,7 @@ Plug 'w0rp/ale'
 Plug 'valloric/youcompleteme', { 'do': 'python3 install.py --all' }
 Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-unimpaired'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -107,6 +108,8 @@ Plug 'christoomey/vim-tmux-navigator'
 " Plug 'scrooloose/nerdtree'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 " Plug 'tpope/vim-unimpaired'
@@ -177,3 +180,5 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 " autocmd BufWritePre * %s/\s\+$//e
 autocmd InsertEnter * set nocul
 autocmd InsertLeave * set cul
+
+let g:airline_powerline_fonts = 1"
