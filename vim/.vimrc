@@ -38,7 +38,7 @@ set listchars=eol:¬,tab:»\ ,trail:.,precedes:«,extends:…,
 nnoremap <leader>l :set list!<cr>
 syntax on
 filetype plugin indent on
-set shiftwidth=4 tabstop=4 softtabstop=4 " expandtab
+set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 set autoindent smartindent
 set shiftround
 set complete+=kspell
