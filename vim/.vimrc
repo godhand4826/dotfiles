@@ -1,3 +1,4 @@
+set t_Co=256
 set nocompatible
 let mapleader='\'
 set encoding=utf-8
@@ -27,8 +28,6 @@ set nowrap sidescroll=1
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 set splitbelow splitright
-inoremap jj <Esc>`^
-inoremap kk <Esc>`^
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
