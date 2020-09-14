@@ -54,7 +54,19 @@ alias chardiff="git diff --no-index --word-diff-regex=."
 # git fzf
 alias gadd="git status --short | fzf --multi --color=dark --cycle --border --ansi --preview-window=up:70% --preview=\"git diff --color {+2}\" | awk '{print \$2}'  | xargs git add"
 alias gco="git diff --name-only | fzf --multi --color=dark --cycle --border --ansi --preview-window=up:70% --preview=\"git diff --color {+1}\" | xargs git checkout"
-alias gustg="git diff --name-only --cached | fzf --multi --color=dark --cycle --border --ansi --preview-window=up:70% --preview="git diff --color --staged {+1}" | xargs git reset HEAD"
+alias gustg="git diff --name-only --cached | fzf --multi --color=dark --cycle --border --ansi --preview-window=up:70% --preview=\"git diff --color --staged {+1}\" | xargs git reset HEAD"
+alias t="tree ."
+alias tmp="cd `mktemp -d`"
+alias e="explorer ."
+alias ta="tmux a -t"
+alias tl="tmux ls"
+alias h="hostname -I"
+alias ports="lsof -i -P -n"
 
+# golang
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+export GOPRIVATE="cicd.icu/cyberon"
 # rust
 export PATH=$PATH:$HOME/.cargo/bin

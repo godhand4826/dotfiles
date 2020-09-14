@@ -1,0 +1,22 @@
+[user]
+	name = eric_huang
+	email = godhand4826@gmail.com
+[core]
+	editor = vim
+    pager = less -F -X
+[alias]
+	l = log --graph --oneline -n 30
+	ll = log --graph --oneline --all -n 30
+	a = add
+	aa = add --all
+	st = status
+	co = checkout
+    d = diff
+	dc = diff --cached
+	dt = difftool
+	dtc = difftool --cached
+	ru = remote update
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
