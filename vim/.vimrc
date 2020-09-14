@@ -30,6 +30,7 @@ set shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 set autoindent smartindent
 set shiftround
 set complete+=kspell
+set completeopt-=preview
 
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-surround'
