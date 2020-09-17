@@ -55,7 +55,7 @@ Plug 'gaving/vim-textobj-argument'
 Plug 'tpope/vim-unimpaired'
 
 Plug 'airblade/vim-gitgutter'
-Plug 'vim-scripts/auto-pairs-gentle'
+" Plug 'vim-scripts/auto-pairs-gentle'
 Plug 'natebosch/vim-lsc'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -133,6 +133,11 @@ function! FileSize()
     endif
 endfunction
 
+function! Eatchar(pat)
+    let c = nr2char(getchar(0))
+    return (c =~ a:pat) ? '' : c
+endfunction
+
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritePre *.js,*.go :Autoformat
 autocmd InsertEnter * set nocul
@@ -143,19 +148,29 @@ autocmd FileType go inoreabbrev pkgm package main<cr>func main(){<cr>}<C-o>O
 autocmd FileType go inoreabbrev pl fmt.Println()<Left>
 autocmd FileType go inoreabbrev func func () {<cr>}<up><C-o>f(
 autocmd FileType go inoreabbrev if if  {<cr>}<Up><C-o>f{<Left>
+autocmd FileType go inoreabbrev iferr if err != nil {<cr>}<C-o>O
 autocmd FileType go inoreabbrev ife if err != nil {<cr>}<C-o>O
 autocmd FileType go inoreabbrev forr for _, var := range  {<cr>}<Up><C-o>f{<Left>
 autocmd FileType go inoreabbrev switch switch  {<cr>case value:<cr>}<Up><Up><C-o>f{<Left>
 autocmd FileType go inoreabbrev wr w http.ResponseWriter, r *http.Request
 autocmd FileType javascript nnoremap ,l :!clear && node %<cr>
-autocmd FileType javascript inoreabbrev cl console.log()<Left>
-autocmd FileType javascript inoreabbrev if if (){<cr>}<Up><C-o>f)
-autocmd FileType javascript inoreabbrev for for(let i = 0; i < ; i++){<cr>}<Up><C-o>2f;
-autocmd FileType javascript inoreabbrev forr for(let i = ; i >= 0 ; i--){<cr>}<Up><C-o>f;
-autocmd FileType javascript inoreabbrev fore for(let  of iter){<cr>}<Up><C-o>ft<Right><Right>
-autocmd FileType javascript inoreabbrev fori for(let  in object){<cr>}<Up><C-o>ft<Right><Right>
-autocmd FileType javascript inoreabbrev while while (){<cr>}<Up><C-o>f)
-autocmd FileType javascript inoreabbrev dowhile do {<cr>} while ()<Left>
-autocmd FileType javascript inoreabbrev switch switch () {<cr>case value:<cr>break;<cr>default:<cr>break;<cr>}<C-o>5k<C-o>f)
+autocmd FileType javascript inoreabbrev cl console.log()<Left><C-R>=Eatchar('\m\s\<bar>/')<cr>
+autocmd FileType javascript inoreabbrev func function () {<cr>}<Up><C-o>f(<C-R>=Eatchar('\m\s\<bar>/')<cr>
+autocmd FileType javascript inoreabbrev if if () {<cr>}<Up><C-o>f)<C-R>=Eatchar('\m\s\<bar>/')<cr>
+autocmd FileType javascript inoreabbrev ifelse if () {<cr>} else {<cr>}<Up><Up><C-o>f)<C-R>=Eatchar('\m\s\<bar>/')<cr>
+autocmd FileType javascript inoreabbrev ife if () {<cr>} else {<cr>}<Up><Up><C-o>f)<C-R>=Eatchar('\m\s\<bar>/')<cr>
+autocmd FileType javascript inoreabbrev ifee if () {<cr>} else if () {<cr>} else {<cr>}<Up><Up><Up><C-o>f)<C-R>=Eatchar('\m\s\<bar>/')<cr>
+autocmd FileType javascript inoreabbrev elseif else if () {<cr>} else {<cr>}<Up><Up><C-o>f)<C-R>=Eatchar('\m\s\<bar>/')<cr>
+autocmd FileType javascript inoreabbrev elif else if () {<cr>} else {<cr>}<Up><Up><C-o>f)<C-R>=Eatchar('\m\s\<bar>/')<cr>
+autocmd FileType javascript inoreabbrev else else {<cr>}<C-o>O<C-R>=Eatchar('\m\s\<bar>/')<cr>
+autocmd FileType javascript inoreabbrev for for (let i = 0; i < ; i++) {<cr>}<Up><C-o>2f;<Left>
+autocmd FileType javascript inoreabbrev forr for (let i = ; i >= 0 ; i--) {<cr>}<Up><C-o>f;<Left>
+autocmd FileType javascript inoreabbrev forof for (let of iter) {<cr>}<Up><C-o>ft<Right>
+autocmd FileType javascript inoreabbrev fore for (let of iter) {<cr>}<Up><C-o>ft<Right>
+autocmd FileType javascript inoreabbrev forin for (let in object) {<cr>}<Up><C-o>ft<Right>
+autocmd FileType javascript inoreabbrev while while () {<cr>}<Up><C-o>f)<C-R>=Eatchar('\m\s\<bar>/')<cr>
+autocmd FileType javascript inoreabbrev dowhile do {<cr>} while ()<Left><C-R>=Eatchar('\m\s\<bar>/')<cr>
+autocmd FileType javascript inoreabbrev switch switch() {<cr>case value:<cr>break;<cr>default:<cr>break;<cr>}<C-o>5k<C-o>f)<C-R>=Eatchar('\m\s\<bar>/')<cr>
+autocmd FileType javascript inoreabbrev sw switch() {<cr>case value:<cr>break;<cr>default:<cr>break;<cr>}<C-o>5k<C-o>f)<C-R>=Eatchar('\m\s\<bar>/')<cr>
 autocmd FileType javascript inoreabbrev A Array().fill(N)<C-o>F)
 autocmd FileType javascript inoreabbrev AA Array().fill(null).map(()=>Array(N).fill(N))<C-o>5F)
