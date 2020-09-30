@@ -138,6 +138,17 @@ function! Eatchar(pat)
     return (c =~ a:pat) ? '' : c
 endfunction
 
+vnoremap " c""<esc>P
+vnoremap ' c''<esc>P
+vnoremap ( c()<esc>P
+vnoremap ) c()<esc>P
+vnoremap [ c[]<esc>P
+vnoremap ] c[]<esc>P
+vnoremap { c{}<esc>P
+vnoremap } c{}<esc>P
+highlight Search ctermfg=black
+highlight lscReference ctermfg=white
+
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritePre *.js,*.go :Autoformat
 autocmd InsertEnter * set nocul
@@ -172,5 +183,4 @@ autocmd FileType javascript inoreabbrev while while () {<cr>}<Up><C-o>f)<C-R>=Ea
 autocmd FileType javascript inoreabbrev dowhile do {<cr>} while ()<Left><C-R>=Eatchar('\m\s\<bar>/')<cr>
 autocmd FileType javascript inoreabbrev switch switch() {<cr>case value:<cr>break;<cr>default:<cr>break;<cr>}<C-o>5k<C-o>f)<C-R>=Eatchar('\m\s\<bar>/')<cr>
 autocmd FileType javascript inoreabbrev sw switch() {<cr>case value:<cr>break;<cr>default:<cr>break;<cr>}<C-o>5k<C-o>f)<C-R>=Eatchar('\m\s\<bar>/')<cr>
-autocmd FileType javascript inoreabbrev A Array().fill(N)<C-o>F)
 autocmd FileType javascript inoreabbrev AA Array().fill(null).map(()=>Array(N).fill(N))<C-o>5F)
