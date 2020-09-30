@@ -62,6 +62,7 @@ alias ta="tmux a -t"
 alias tl="tmux ls"
 alias h="hostname -I"
 alias ports="lsof -i -P -n"
+alias vim="nvim"
 
 # golang
 export PATH=$PATH:/usr/local/go/bin
