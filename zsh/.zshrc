@@ -27,6 +27,7 @@ plugins=(
     fzf
     z
     sudo
+    git
     command-not-found
     docker
     extract
@@ -63,6 +64,11 @@ alias tl="tmux ls"
 alias h="hostname -I"
 alias ports="lsof -i -P -n"
 alias vim="nvim"
+
+# temp
+alias tmp="cd $(mktemp -d)"
+PKGM='package main\n\nimport \"fmt\"\n\nfunc main(){\n\tfmt.Println(\"hello world\")\n}'
+alias gotmp="cd $(mktemp -d) && mkdir playground && cd playground && go mod init playground && echo \"$PKGM\" > main.go"
 
 # golang
 export PATH=$PATH:/usr/local/go/bin
