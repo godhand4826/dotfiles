@@ -63,7 +63,7 @@ call plug#end()
 let mapleader='\'
 let g:gitgutter_map_keys = 0
 let g:ack_default_options =
-	\ " -s -H --nocolor --nogroup --column --smart-case --ignore-dir=.gopath"
+	\ " -s -H --nocolor --nogroup --column --smart-case --ignore-dir=.gopath --ignore-dir=target"
 
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
@@ -101,23 +101,6 @@ function! RemoveTrailingSpace()
     echo "trailing space removed"
 endfunction
 
-function! RunFormat(expr)
-  let l:save_cursor = getpos(".")
-  execute "%!" . a:expr
-  call setpos(".", save_cursor)
-endfunction
-
-autocmd FileType javascript call JavascriptSetup()
-function! JavascriptSetup()
-	autocmd FileType javascript nnoremap ,l :!clear && node %<CR>
-	autocmd BufWritePre * call RunFormat("npx prettier --stdin-filepath %")
-endfunction
-
-autocmd FileType c,cpp call ClangSetup()
-function! ClangSetup()
-	autocmd BufWritePre * call RunFormat("clang-format")
-endfunction
-
 function! ToggleMouse()
 	if &mouse == ''
 		set mouse=a
@@ -127,3 +110,36 @@ function! ToggleMouse()
 		echo "mouse disabled"
 	endif
 endfunction
+
+function! RunBuf(cmd) abort
+  let buffer_content = getline(1, '$')
+  let lines = systemlist(a:cmd, join(buffer_content, "\n"))
+  if v:shell_error
+    echo join(lines, "\n")
+    return
+  endif
+  silent keepjumps call setline(1, lines)
+  if line('$') > len(lines)
+    silent keepjumps execute string(len(lines)+1).',$ delete'
+  endif
+endfunction
+
+function! PrettierOnSave()
+	autocmd BufWritePre * call RunBuf("npx prettier --stdin-filepath ".expand('%:t'))
+endfunction
+
+function! ClangFormatOnSave()
+	autocmd BufWritePre * call RunBuf("clang-format")
+endfunction
+
+autocmd FileType javascript call JavascriptSetup()
+function! JavascriptSetup()
+	nnoremap ,l :!clear && node %<CR>
+	call PrettierOnSave()
+endfunction
+
+autocmd FileType c,cpp call ClangSetup()
+function! ClangSetup()
+	call ClangFormatOnSave()
+endfunction
+
