@@ -1,22 +1,25 @@
 [user]
-	name = eric_huang
-	email = godhand4826@gmail.com
+	name       = eric_huang
+	email      = godhand4826@gmail.com
+	signingkey = $HOME/.ssh/id_rsa.pub
 [core]
-	editor = vim
-    pager = less -F -X
+	editor     = vim
+    pager      = less -F -X
 [alias]
-	l = log --graph --oneline -n 30
-	ll = log --graph --oneline --all -n 30
-	a = add
-	aa = add --all
-	st = status
-	co = checkout
-    d = diff
-	dc = diff --cached
-	dt = difftool
-	dtc = difftool --cached
-	ru = remote update
+	a          = add
+	aa         = add --all
+	co         = checkout
+	d          = diff
+	dc         = diff --cached
+	l          = log --graph --oneline       -n 20
+	ll         = log --graph --oneline --all -n 20
+	lll        = log --graph --oneline --all
+	ru         = remote update --prune
+	st         = status
+	su         = submodule update --recursive --init
 [diff]
-	tool = vimdiff
+	tool       = vimdiff
 [difftool]
-	prompt = false
+	prompt     = false
+[gpg]
+	format     = ssh
