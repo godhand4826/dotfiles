@@ -1,22 +1,25 @@
 [user]
     name   = godhand4826
     email  = godhand4826@gmail.com
+	signingkey = /Users/huangyaozheng/.ssh/id_rsa.pub
 [core]
     editor = vim
     pager  = less -F -X
 [alias]
-    l      = log --graph --oneline
-    ll     = log --graph --oneline --all
     a      = add
     aa     = add --all
-    st     = status
     co     = checkout
     d      = diff
     dc     = diff --cached
-    dt     = difftool
-    dtc    = difftool --cached
-    ru     = remote update
+	l      = log --graph --oneline       -n 20
+	ll     = log --graph --oneline --all -n 20
+	lll    = log --graph --oneline --all
+	ru     = remote update --prune
+    st     = status
+	su     = submodule update --recursive --init
 [diff]
     tool   = vimdiff
 [difftool]
     prompt = false
+[gpg]
+	format = ssh

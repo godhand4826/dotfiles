@@ -125,10 +125,12 @@ function! RunBuf(cmd) abort
 endfunction
 
 function! PrettierOnSave()
+	autocmd! BufWritePre *
 	autocmd BufWritePre * call RunBuf("npx prettier --stdin-filepath ".expand('%:t'))
 endfunction
 
 function! ClangFormatOnSave()
+	autocmd! BufWritePre *
 	autocmd BufWritePre * call RunBuf("clang-format")
 endfunction
 

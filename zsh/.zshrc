@@ -25,64 +25,62 @@ zstyle ':completion:*' completer _expand_alias _complete _ignored
 
 plugins=(
     fzf
-    z
-    sudo
     git
-    command-not-found
+    z
     docker
     extract
-    screen
-    zsh-autosuggestions
-    zsh-syntax-highlighting
+	kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
 
-# export MANPATH="/usr/local/man:$MANPATH"
-# export LANG=en_US.UTF-8
-# export ARCHFLAGS="-arch x86_64"
-
-export EDITOR="vim"
-alias zshrc="$EDITOR ~/.zshrc"
-alias zshreload="source ~/.zshrc"
-alias vimrc="$EDITOR ~/.vimrc"
+alias zshrc='vim ~/.zshrc'
+alias zshreload='source ~/.zshrc'
+alias vimrc='vim ~/.vimrc'
 alias curlrc='vim ~/.curlrc'
 alias gitconfig='git config --global --edit'
 alias sshconfig='vim ~/.ssh/config'
 alias tmuxconfig='vim ~/.tmux.conf'
-alias i3config="$EDITOR ~/.config/i3/config"
-alias i3reload="i3-msg reload"
+alias i3config='vim ~/.config/i3/config'
+alias i3reload='i3-msg reload'
+
+alias gdc='git diff --cached'
+alias gru='git remote update --prune'
+alias gsu='git submodule update --recursive --init'
+alias gro='git reset ORIG_HEAD'
+
+alias ta='tmux a -t'
+alias tl='tmux ls'
+
+alias dcu='docker compose up -d'
+alias dcd='docker compose down --volumes --remove-orphans'
+alias dcr='docker compose down --volumes --remove-orphans && docker compose up -d'
+
+alias chardiff='git diff --no-index --word-diff-regex=.'
+alias ports='lsof -i -P -n'
+alias tmp='cd $(mktemp -d -t $USER)'
+
+alias code='open -b com.microsoft.VSCode "$@"'
+alias c.='code .'
+alias t='tree .'
+alias htop="htop --user=$USER"
+
 alias explorer="gio open 1>/dev/null 2>/dev/null"
 alias trash="gio trash"
-alias clip="xclip -sel clip"
-alias chardiff="git diff --no-index --word-diff-regex=."
 # git fzf
 alias gadd="git status --short | fzf --multi --color=dark --cycle --border --ansi --preview-window=up:70% --preview=\"git diff --color {+2}\" | awk '{print \$2}'  | xargs git add"
 alias gco="git diff --name-only | fzf --multi --color=dark --cycle --border --ansi --preview-window=up:70% --preview=\"git diff --color {+1}\" | xargs git checkout"
 alias gustg="git diff --name-only --cached | fzf --multi --color=dark --cycle --border --ansi --preview-window=up:70% --preview=\"git diff --color --staged {+1}\" | xargs git reset HEAD"
-alias t="tree ."
-alias e="explorer ."
-alias ta="tmux a -t"
-alias tl="tmux ls"
-alias h="hostname -I"
-alias ports="lsof -i -P -n"
-alias vim="nvim"
-alias gdc='git diff --cached'
-alias gru='git remote update --prune'
-alias gsu='git submodule update --recursive --init'
-alias git-undo-reset="git reset 'HEAD@{1}'"
-alias dcu="docker compose up -d"
-alias dcd="docker compose down --volumes"
-alias dcr="docker compose down --volumes && docker compose up -d"
-alias htop="htop --user=$USER"
-alias code='open -b com.microsoft.VSCode "$@"'
-alias c.="code ."
 
 # golang
 export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
-export GOPRIVATE="cicd.icu/cyberon"
+# https://gist.github.com/MicahParks/1ba2b19c39d1e5fccc3e892837b10e21
+export GONOPROXY=''
+export GONOSUMDB=''
+export GOPRIVATE=''
+
 # rust
 export PATH=$PATH:$HOME/.cargo/bin
 
@@ -99,13 +97,8 @@ func playground() {
 }
 
 func coverage() {
-	go test -coverprofile cover.out &&
+	go test -coverprofile cover.out ./... &&
 	go tool cover -html=cover.out -o cover.html &&
 	open cover.html
 }
 
-export USER_TMP_DIR=
-func tmp() {
-	[ -d "$USER_TMP_DIR" ] || USER_TMP_DIR=$(mktemp -d -t $USER)
-	cd $USER_TMP_DIR
-}
