@@ -65,6 +65,8 @@ let g:gitgutter_map_keys = 0
 let g:ack_default_options =
 	\ " -s -H --nocolor --nogroup --column --smart-case --ignore-dir=.gopath --ignore-dir=target"
 
+nnoremap ; :
+vnoremap ; :
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 nmap ]h <Plug>(GitGutterNextHunk)
