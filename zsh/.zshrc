@@ -24,12 +24,13 @@ setopt HIST_IGNORE_ALL_DUPS
 zstyle ':completion:*' completer _expand_alias _complete _ignored
 
 plugins=(
-    fzf
-    git
-    z
-    docker
-    extract
+	docker
+	extract
+	fzf
+	git
 	kubectl
+	tmux
+	z
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -49,7 +50,7 @@ alias gru='git remote update --prune'
 alias gsu='git submodule update --recursive --init'
 alias gro='git reset ORIG_HEAD'
 
-alias ta='tmux a -t'
+alias ta='tmux attach'
 alias tl='tmux ls'
 
 alias dcu='docker compose up -d'
@@ -61,6 +62,8 @@ alias ports='lsof -i -P -n'
 alias tmp='cd $(mktemp -d -t $USER)'
 
 alias code='open -b com.microsoft.VSCode "$@"'
+alias line='open -b jp.naver.line.mac'
+alias idea='open -b com.jetbrains.intellij.ce "$@"'
 alias c.='code .'
 alias t='tree .'
 alias htop="htop --user=$USER"
@@ -73,9 +76,9 @@ alias gco="git diff --name-only | fzf --multi --color=dark --cycle --border --an
 alias gustg="git diff --name-only --cached | fzf --multi --color=dark --cycle --border --ansi --preview-window=up:70% --preview=\"git diff --color --staged {+1}\" | xargs git reset HEAD"
 
 # golang
-export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:/usr/local/go/bin
 # https://gist.github.com/MicahParks/1ba2b19c39d1e5fccc3e892837b10e21
 export GONOPROXY=''
 export GONOSUMDB=''
