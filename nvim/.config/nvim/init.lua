@@ -5,7 +5,7 @@ require 'setup-lazy'
 
 require('lazy').setup({
   require 'plugins.gitsigns',
-  require 'plugins.which-key',
+  -- require 'plugins.which-key',
   require 'plugins.comment',
   require 'plugins.telescope', -- fuzzy finder
   require 'plugins.conform', -- autoformat
