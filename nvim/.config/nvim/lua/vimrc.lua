@@ -44,6 +44,7 @@ vim.opt.listchars = {
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<cr>', { noremap = true })
 vim.keymap.set('n', '<leader>l', '<cmd>set list!<cr>', { desc = 'Toggle vim.opt.list', noremap = true })
+vim.keymap.set('n', '<leader>m', ':make<cr>', { desc = 'make', noremap = true })
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message', noremap = true })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message', noremap = true })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages', noremap = true })
@@ -64,10 +65,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-vim.api.nvim_create_autocmd('FileType', {
-  desc = 'Add shortcut to execute javascript with node',
-  pattern = 'javascript',
-  callback = function()
-    vim.keymap.set('n', ',l', '<cmd>!node %<cr>', { desc = 'Execute javascript', buffer = true, noremap = true })
-  end,
-})
