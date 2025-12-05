@@ -1,7 +1,7 @@
 [user]
 	name       = eric_huang
 	email      = godhand4826@gmail.com
-	signingkey = $HOME/.ssh/id_rsa.pub
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEx7LgGcv6z0mtZAqqqHHAkS92AH+Eiij5C6kmr54kJP
 [core]
 	editor     = vim
     pager      = less -F -X
@@ -23,3 +23,7 @@
 	prompt     = false
 [gpg]
 	format     = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+	gpgsign = true
