@@ -1,17 +1,17 @@
 -- autoformat
 -- ref: https://github.com/stevearc/conform.nvim
 return {
-  'stevearc/conform.nvim',
-  event = { 'BufWritePre' },
-  cmd = { 'ConformInfo' },
+  "stevearc/conform.nvim",
+  event = { "BufWritePre" },
+  cmd = { "ConformInfo" },
   keys = {
     {
-      '<leader>f',
+      "<leader>f",
       function()
-        require('conform').format { async = true, lsp_fallback = true }
+        require("conform").format({ async = true, lsp_fallback = true })
       end,
-      mode = '',
-      desc = '[F]ormat buffer',
+      mode = "",
+      desc = "[F]ormat buffer",
     },
   },
   opts = {
@@ -31,8 +31,8 @@ return {
     end,
 
     formatters_by_ft = {
-      lua = { 'stylua' },
-      javascript = { 'prettierd', 'prettier', stop_after_first = true },
+      lua = { "stylua" },
+      javascript = { "prettierd", "prettier", stop_after_first = true },
     },
   },
 }
