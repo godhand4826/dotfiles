@@ -1,8 +1,9 @@
-vim.opt.makeprg = "clang++ -Wall -std=c++23 % -o %<"
+local clangBuild = "clang++ -Wall -std=c++23 % -o %<"
+
+vim.opt.makeprg = clangBuild
 
 vim.keymap.set("n", ",l", function()
-  vim.cmd("make")
-  vim.cmd("!./%<")
+  vim.cmd("!" .. clangBuild .. " && ./%<")
 end, { desc = "Execute C++", buffer = true, noremap = true })
 
 local clangGroup = vim.api.nvim_create_augroup("ClangFormat", { clear = true })
